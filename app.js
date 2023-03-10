@@ -1,7 +1,11 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const dotenv = require("dotenv");
 const middlewares = require("./middlewares");
+
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
 
