@@ -12,7 +12,7 @@ fs.readdirSync(path.join(__dirname, "routes")).forEach((file) => {
   const routeName = path.basename(file, ".js");
   const routePrefix = "/" + routeName; // Use route file name as prefix
   const route = require("./routes/" + file);
-  console.log(file);
+
   if (routeName === "index") {
     router.use("/", route);
   } else {
