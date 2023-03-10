@@ -18,19 +18,20 @@ class APIController extends Controller {
         "controllers",
         `${pathname}.js`
       );
+      let upperppathname = pathname.charAt(0).toUpperCase() + pathname.slice(1);
       fs.writeFileSync(
         controllerPath,
-        `class ${pathname}Controller extends Controller {} \nmodule.exports = ${pathname}Controller;`
+        `const Controller = require('./controller');\n\nclass ${upperppathname}Controller extends Controller {} \nmodule.exports = ${upperppathname}Controller;`
       );
 
       // Create route file
       const routePath = path.join(__dirname, "..", "routes", `${pathname}.js`);
       fs.writeFileSync(
         routePath,
-        `const express = require("express");\nconst router = express.Router();\nconst ${pathname}Controller = require("../controllers/${pathname}");\n\nrouter.get("/", ${pathname}Controller.index);\n\nmodule.exports = router;`
+        `const express = require("express");\nconst router = express.Router();\nconst ${upperppathname}Controller = require("../controllers/${pathname}");\n\nrouter.get("/", ${upperppathname}Controller.index);\n\nmodule.exports = router;`
       );
     }
-    
+
     res.json({
       msg: `Controller and route for '${pathname}' created successfully`,
     });
